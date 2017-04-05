@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../js/mui.min.js"></script>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="UTF-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			.touxiang {
+				min-height:55px;
+				max-height: 55px;
+				min-width:55px;
+				max-width:55px;
+				border-radius: 30px;
+			}
+			.HealthyCircle_name {
+				font-family: '微软雅黑';
+				font-size: 15px;
+				display: block;
+				line-height: 18px;
+			}
+			.HealthyCircle_title {
+				font-family: '微软雅黑';
+				font-size: 14px;
+				display: block;
+				line-height: 15px;
+				color: #8f8f94;
+			}
+			.HealthyCircle_body {
+				font-family: '微软雅黑';
+				font-size: 14px;
+				display: block;
+				margin-top: 3px;
+			}
+			.gz_off{border-color:#F4663B;font-size: 15px;color: #F4663B;padding-top: 2px;padding-bottom: 2px;padding-left: 5px;padding-right: 5px;}
+			.gz{font-size: 15px;color: #8f8f94;padding-top: 2px;padding-bottom: 2px;padding-left: 5px;padding-right: 5px;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的好友</h1>
+		</header>
+		<div class="mui-content">
+				<ul id="list" class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">
+						x-man
+					</a>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="../../images/user-photo.png">
+						<div class="mui-media-body">
+							Captain America
+							<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="../../images/user-photo.png">
+						<div class="mui-media-body">
+							Captain America
+							<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="../../images/user-photo.png">
+						<div class="mui-media-body">
+							Captain America
+							<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+						</div>
+					</a>
+				</li>
+
+			</ul>
+				</li>
+				</ul>
+			<!--<ul class="mui-table-view" id="HotUser">
+				<li class="mui-table-view-cell mui-media">
+					<a href="#">
+						<img class="mui-media-object mui-pull-left touxiang" src="../../images/user-photo.png">
+						<div class="mui-media-body">
+							<span class="HealthyCircle_name">美国队长</span>
+							<button class="gz_off mui-pull-right">发消息</button>
+							<span class="HealthyCircle_title">职责：开发</span>
+							<span class="HealthyCircle_body">联系电话：10000000000</span>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="#">
+						<img class="mui-media-object mui-pull-left touxiang" src="../../images/user-photo.png">
+						<div class="mui-media-body">
+							<span class="HealthyCircle_name">美国队长</span>
+							<button class="gz_off mui-pull-right">发消息</button>
+							<span class="HealthyCircle_title">职责：开发</span>
+							<span class="HealthyCircle_body">联系电话：10000000000</span>
+						</div>
+					</a>
+				</li>
+			</ul>-->
+		</div>
+		<script type="text/javascript" src="../../js/ServiceUrl.js" ></script>
+		<script type="text/javascript">
+			
+					mui.ajax(ajaxUrl+'/patientClientApp/osPatientAction_findByHotDoctor.action?user='+localStorage.patientid+"&num="+0+"&size="+10,{
+							dataType:'json',//服务器返回json格式数据
+							type:'get',//HTTP请求类型
+							success:function(data){
+								
+								if(data.length==0)
+								{
+									
+								}
+								else
+								{
+									for(var n=0;n<data.length;n++)
+									{
+										var li=document.createElement('li');
+										li.setAttribute('class','mui-table-view-cell mui-media');
+										li.innerHTML="<a href=\"#\">\n" +
+"						<img class=\"mui-media-object mui-pull-left touxiang\" src=\"../../images/cbd.jpg\">\n" +
+"						<div class=\"mui-media-body\">\n" +
+"							<span class=\"HealthyCircle_name\">"+data[n][1]+"</span>\n" +
+"							"+(data[n][4]!=1?'<button  id=\"care'+data[n][0]+'\" onclick=\"care1('+data[n][0]+','+localStorage.patientid+');\" class=\"gz_off mui-pull-right\">+关注</button>':'<button style="font-size: 14px;color: #8f8f94;float: right;" class="mui-pull-right">已关注</button>')+"\n" +
+"							<span class=\"HealthyCircle_body\">"+data[n][2]+"</span>\n" +
+"						</div>\n" +
+"					</a>";
+										document.getElementById('HotUser').appendChild(li);
+									}
+									
+								}
+							}
+					});
+			function care1(label, user) {
+				mui.ajax(ajaxUrl + '/patientClientApp/osPatientAction_careDoctor.action', {
+					data: {
+						label: label,
+						user: user
+					},
+					dataType: 'json', //服务器返回json格式数据 
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						document.getElementById('care'+label).setAttribute('class', 'gz_on');
+						document.getElementById('care'+label).setAttribute('onclick', '');
+						document.getElementById('care'+label).innerHTML = '已关注';
+					}
+				});
+			}
+			
+		</script>
+	</body>
+
+</html>
