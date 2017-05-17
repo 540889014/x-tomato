@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>Hello MUI</title>
@@ -13,11 +14,37 @@
 			mui.init();
 		</script>
 		<style>
-			.mui-ellipsis {color: #6D6D72;}
-			.touxiang{border-radius: 40px;}
-			.DoctorDetails_name{font-size: 17px;display: block;padding-top: 5px;}
-		    .DoctorDetails_title1{font-size: 14px;display: block;color: #8f8f94;margin-top: 5px;}
-		    .DoctorDetails_title2{font-size: 13px;display: inline-block;color: #8f8f94;margin-top: 3px;border: 1px solid #6D6D72;border-radius: 15px;padding-left: 1px;padding-right: 1px;}
+			.mui-ellipsis {
+				color: #6D6D72;
+			}
+			
+			.touxiang {
+				border-radius: 40px;
+			}
+			
+			.DoctorDetails_name {
+				font-size: 17px;
+				display: block;
+				padding-top: 5px;
+			}
+			
+			.DoctorDetails_title1 {
+				font-size: 14px;
+				display: block;
+				color: #8f8f94;
+				margin-top: 5px;
+			}
+			
+			.DoctorDetails_title2 {
+				font-size: 13px;
+				display: inline-block;
+				color: #8f8f94;
+				margin-top: 3px;
+				border: 1px solid #6D6D72;
+				border-radius: 15px;
+				padding-left: 1px;
+				padding-right: 1px;
+			}
 		</style>
 	</head>
 
@@ -27,7 +54,7 @@
 			<h1 class="mui-title">项目详情</h1>
 		</header>
 		<div class="mui-content">
-			<ul class="mui-table-view mui-table-view-chevron" style="margin: 0;">
+			<ul class="mui-table-view mui-table-view-chevron" style="margin: 0;" id="projectDetail">
 				<li class="mui-table-view-cell mui-media" style="height: 130px;padding-top: 20px;">
 					<!--<a class="mui-navigate-right">-->
 					<!--<img class="mui-media-object mui-pull-left touxiang" src="../../images/cbd.jpg" style="height: 80px;max-width:80px;">-->
@@ -40,16 +67,7 @@
 					</a>
 				</li>
 			</ul>
-			
-			<ul class="mui-table-view mui-table-view-chevron">
-				<li class="mui-table-view-cell mui-media">
-					<a class="mui-navigate-right" href="transactionList.html">
-						<div class="mui-media-body">
-							<p class='mui-ellipsis'>70个未完成事务</p>
-						</div>
-					</a>
-				</li>
-			</ul>
+
 			<ul class="mui-table-view mui-table-view-chevron" style="margin-top: 10px;">
 				<li class="mui-table-view-cell mui-media">
 					<a class="mui-navigate-right" href="projectMembers.html">
@@ -84,49 +102,70 @@
 				</li>-->
 			</ul>
 		</div>
-		
+		<script src="../../js/commonUtil.js"></script>
 		<script type="text/javascript">
+			mui.ajax({
+				type: "post",
+				dataType: "json",
+				url: serverUrl + "main/project_queryProjectById.action?id="+localStorage.openProjectId,
+				//                  complete :function(){$("#load").hide();},
+				success: function(data) {
+
+					document.getElementById("projectDetail").innerHTML = "	<li class=\"mui-table-view-cell mui-media\" style=\"height: 130px;padding-top: 20px;\">\n" +
+						"					<!--<a class=\"mui-navigate-right\">-->\n" +
+						"					<!--<img class=\"mui-media-object mui-pull-left touxiang\" src=\"../../images/cbd.jpg\" style=\"height: 80px;max-width:80px;\">-->\n" +
+						"					<div class=\"mui-media-body\">\n" +
+						"						<span class=\"DoctorDetails_name\">"+data.projectName+"</span>\n" +
+						"						<span class=\"DoctorDetails_title1\">项目类别："+data.type+"</span>\n" +
+						"						<span class=\"DoctorDetails_title1\">项目周期："+data.startTime.substring(0,10)+"~"+data.endTime.substring(0,10)+"</span>\n" +
+						"						<span class=\"DoctorDetails_title2\" style=\"color: red;\">进行中</span>\n" +
+						"					</div>\n" +
+						"					</a>\n" +
+						"				</li>";
+
+				}
+			});
 			document.getElementById('Myself-Money').addEventListener('tap', function() {
-  					 //打开关于页面
- 			 		mui.openWindow({
-    				url: 'Myself-Money.html', 
-    				id:'Myself-Money',
-  				});
+				//打开关于页面
+				mui.openWindow({
+					url: 'Myself-Money.html',
+					id: 'Myself-Money',
+				});
 			});
 			document.getElementById('HealthyTest').addEventListener('tap', function() {
-  					 //打开关于页面
- 			 		mui.openWindow({
-    				url: '../HealthyCenter/HealthyTest.html', 
-    				id:'HealthyTest',
-  				});
+				//打开关于页面
+				mui.openWindow({
+					url: '../HealthyCenter/HealthyTest.html',
+					id: 'HealthyTest',
+				});
 			});
 			document.getElementById('MyArchives').addEventListener('tap', function() {
-  					 //打开关于页面
- 			 		mui.openWindow({
-    				url: 'MyArchives.html', 
-    				id:'MyArchives',
-  				});
+				//打开关于页面
+				mui.openWindow({
+					url: 'MyArchives.html',
+					id: 'MyArchives',
+				});
 			});
 			document.getElementById('HealhyCenter-Myself').addEventListener('tap', function() {
-  					 //打开关于页面
- 			 		mui.openWindow({
-    				url: '../HealthyCircle/HealhyCircle-Myself.html', 
-    				id:'HealhyCenter-Myself',
-  				});
+				//打开关于页面
+				mui.openWindow({
+					url: '../HealthyCircle/HealhyCircle-Myself.html',
+					id: 'HealhyCenter-Myself',
+				});
 			});
 			document.getElementById('HealthyCenter-MyDoctor').addEventListener('tap', function() {
-  					 //打开关于页面
- 			 		mui.openWindow({
-    				url: '../HealthyCenter/HealthyCenter-MyDoctor.html', 
-    				id:'HealthyCenter-MyDoctor',
-  				});
+				//打开关于页面
+				mui.openWindow({
+					url: '../HealthyCenter/HealthyCenter-MyDoctor.html',
+					id: 'HealthyCenter-MyDoctor',
+				});
 			});
 			document.getElementById('HealthyPlan').addEventListener('tap', function() {
-  					 //打开关于页面
- 			 		mui.openWindow({
-    				url: '../HealthyCenter/HealthyPlan.html', 
-    				id:'HealthyPlan',
-  				});
+				//打开关于页面
+				mui.openWindow({
+					url: '../HealthyCenter/HealthyPlan.html',
+					id: 'HealthyPlan',
+				});
 			});
 		</script>
 	</body>

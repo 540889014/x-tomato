@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width: 22%;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">创建项目</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>项目名称</label>
+					<input id='projectName' type="text" class="mui-input-clear mui-input" placeholder="请输入项目名称">
+				</div>
+				<div class="mui-input-row">
+					<label>项目类型</label>
+					<input id='type' type="text" class="mui-input-clear mui-input" placeholder="请输入项目类型">
+				</div>
+				<div class="mui-input-row">
+					<label>开始日期</label>
+					<input id='startTime' type="date" class="mui-input-clear mui-input" placeholder="请选择日期">
+				</div>
+				<div class="mui-input-row">
+					<label>结束日期</label>
+					<input id='endTime' type="date" class="mui-input-clear mui-input" placeholder="请选择日期">
+				</div>
+			</form>
+			<div class="mui-content-padded"> 
+				<button class="mui-btn mui-btn-block mui-btn-primary" onclick="addProject();">创建</button>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/commonUtil.js"></script>
+		<script>
+			function addProject(){
+				var projectName = document.getElementById('projectName').value;
+				var type = document.getElementById('type').value;
+				var startTime = document.getElementById('startTime').value;
+				var endTime = document.getElementById('endTime').value;
+					mui.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: serverUrl+"main/project_save.action",
+                    data: {
+                    		projectName:projectName,
+							userId: localStorage.userId,
+							type:type,
+							startTime:startTime,
+							endTime:endTime,
+							state:1
+						},
+//                  complete :function(){$("#load").hide();},
+                    success: function(msg){
+ 
+
+                  			location.href = "myproject.html"
+
+
+                        }
+                    });  
+                    location.href = "myproject.html"
+			}
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					var settings = app.getSettings();
+					var regButton = doc.getElementById('reg');
+					var accountBox = doc.getElementById('account');
+					var passwordBox = doc.getElementById('password');
+					var passwordConfirmBox = doc.getElementById('password_confirm');
+					var emailBox = doc.getElementById('email');
+					regButton.addEventListener('tap', function(event) {
+						var regInfo = {
+							account: accountBox.value,
+							password: passwordBox.value,
+							email: emailBox.value
+						};
+						var passwordConfirm = passwordConfirmBox.value;
+						if (passwordConfirm != regInfo.password) {
+							plus.nativeUI.toast('密码两次输入不一致');
+							return;
+						}
+						app.reg(regInfo, function(err) {
+							if (err) {
+								plus.nativeUI.toast(err);
+								return;
+							}
+							plus.nativeUI.toast('注册成功');
+							$.openWindow({
+								url: 'login.html',
+								id: 'login',
+								show: {
+									aniShow: 'pop-in'
+								}
+							});
+						});
+					});
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>
